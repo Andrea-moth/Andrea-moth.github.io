@@ -1,5 +1,3 @@
-const ONETOTWELVE = ["Twelve", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven"]
-
 const BOOKMARKS = {
     "Code":{
         "github": "https://github.com",
@@ -16,6 +14,21 @@ const BOOKMARKS = {
         "pixilart": "https://www.pixilart.com"
     }};
 
+const HOURSTOSTRING = [
+    "Twelve", 
+    "One", 
+    "Two", 
+    "Three", 
+    "Four", 
+    "Five", 
+    "Six", 
+    "Seven", 
+    "Eight", 
+    "Nine", 
+    "Ten", 
+    "Eleven",
+]
+
 function dateTime() {
 	const DATE = new Date();
 
@@ -23,12 +36,12 @@ function dateTime() {
 
 	let hours = DATE.getHours();
 	let minutes = DATE.getMinutes();
-	if (hours > 12){
-        hours = hours - 12; 
+    if (hours >= 12){
+        hours -= 12
     }
-    hours = ONETOTWELVE[hours];
+    hours = HOURSTOSTRING[hours];
 
-    if (minutes < 5){hours = `${hours} O'Clock`;} 
+    if (minutes < 5){hours = `${hours} O'Clock`;}
     else if (minutes < 10 && minutes >= 5){hours = `Five past ${hours}`} 
     else if (minutes < 15 && minutes >= 10){hours = `Ten past ${hours}`} 
     else if (minutes < 20 && minutes >= 15){hours = `Fifteen past ${hours}`}
@@ -46,14 +59,13 @@ function dateTime() {
 }
 
 function set_quick_sites(){
-    var bookmarks = document.getElementById("bookmarks");
-
-    var books = '<h2 class="sr-only">Bookmarks</h2>';
-
-    var coloumns = ``;
+    var coloumns = `<h2 class="sr-only">Bookmarks</h2>`;
     for (var topic in BOOKMARKS){
+        
         var coloumn = `<ul><p id="sections">${topic}</p>`;
+
         for (var site_name in BOOKMARKS[topic]){
+
             var site_url = BOOKMARKS[topic][site_name];
             var link = `<a href=${site_url}>`;
             var site_icon = `<img src=https://icons.duckduckgo.com/ip3/${site_name}.com.ico class="favicon" alt=${site_name} favicon>`;
@@ -62,7 +74,7 @@ function set_quick_sites(){
         }
         coloumns += `${coloumn}</ul>`;
     }
-    bookmarks.innerHTML = coloumns
+    document.getElementById("bookmarks").innerHTML = coloumns
 }
 
 function traichu() {
